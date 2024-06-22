@@ -33,9 +33,10 @@ class OpenAI(DrawingAPI):
         logger.debug(f"[OpenAI Image] Prompt: {prompt}")
         response = await openai.Image.acreate(
             api_key=self.api_info.api_key,
+            model="dall-e-3",
             prompt=prompt,  # 图片描述
             n=1,  # 每次生成图片的数量
-            size="512x512",  # 图片大小,可选有 256x256, 512x512, 1024x1024
+            size="1024x1024",  # 图片大小,可选有 256x256, 512x512, 1024x1024
             user=self.hashed_user_id
         )
         image_url = response['data'][0]['url']
@@ -50,9 +51,10 @@ class OpenAI(DrawingAPI):
         raw_image.save(f, format='PNG')
         response = await openai.Image.acreate_variation(
             api_key=self.api_info.api_key,
+            model="dall-e-3",
             image=open(f, 'rb'),
             n=1,
-            size="512x512",
+            size="1024x1024",
             user=self.hashed_user_id
         )
         image_url = response['data'][0]['url']
